@@ -1,3 +1,7 @@
+# Simple wrapper for the ideone.com SOAP API
+# by Marvin Killing
+# Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+
 from SOAPpy import WSDL
 
 class Status:
