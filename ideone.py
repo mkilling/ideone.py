@@ -36,13 +36,11 @@ class IdeOne:
         self._wsdlObject = WSDL.Proxy('http://ideone.com/api/1/service.wsdl')
 
     def testFunction(self):
-        """call ideone test function"""
         response = self._wsdlObject.testFunction('test', 'test')
         items = response['item']
         return createDict(items)
 
     def getLanguages(self):
-        """returns a list of tuples with languages supported by ideone"""
         response = self._wsdlObject.getLanguages(self._user, self._password)
         languages = response['item'][1]['value']['item']
         return createDict(languages)
@@ -66,11 +64,14 @@ class IdeOne:
 
 
 if __name__ == "__main__":
-    PYTHON = 116
     ideone = IdeOne()
-    link = ideone.createSubmission("print('Hello World')\n", PYTHON)
-    
+
+    # run a python program
+    link = ideone.createSubmission("print('Hello World')\n", 116)
+   
+    # wait for it to finish 
     while ideone.getSubmissionStatus(link)[0] != Status.Done:
         pass
 
+    # print output
     print ideone.getSubmissionDetails(link)['output']
