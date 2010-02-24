@@ -5,11 +5,12 @@ def createTuple(item):
     return (item['key'], item['value']) 
 
 def createDict(items):
-    ret = {}
-    tuples = map(createTuple, items)
-    for tuple in tuples:
-        ret[tuple[0]] = tuple[1]
-    return ret
+    dict = {}
+    for item in items:
+        key = item['key'] 
+        value = item['value']
+        dict[key] = value
+    return dict
 
 class IdeOne:
     def __init__(self, user='test', password='test'):
@@ -41,4 +42,4 @@ if __name__ == "__main__":
     ideone = IdeOne()
     print ideone.getLanguages()
     print ideone.testFunction()
-    print ideone.createSubmission("print 'Hello World'\n", PYTHON)
+    print ideone.createSubmission("print 'Hello World'\n", PYTHON, 'lala', False, True)
