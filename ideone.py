@@ -1,5 +1,21 @@
 from SOAPpy import WSDL
 
+class Status:
+    Waiting = -1
+    Done = 0
+    Compiling = 1
+    Running = 3
+
+class Result:
+    NotRunning = 0
+    CompileError = 11
+    RuntimeError = 12
+    Timeout = 13
+    Success = 15
+    MemoryLimit = 17
+    IllegalSystemCall = 19
+    InternalError = 20
+    
 
 def createTuple(item):
     return (item['key'], item['value']) 
@@ -11,6 +27,7 @@ def createDict(items):
         value = item['value']
         dict[key] = value
     return dict
+
 
 class IdeOne:
     def __init__(self, user='test', password='test'):
@@ -35,11 +52,18 @@ class IdeOne:
         link = response['item'][1]['value']
         return link
 
+    def getSubmissionStatus(self, link):
+        response = self._wsdlObject.getSubmissionStatus(self._user, self._password, link)
+        status = response['item'][1]['value']
+        result = response['item'][2]['value']
+        if status < 0: status = -1
+        return (status, result)
 
 
 if __name__ == "__main__":
     PYTHON = 116
     ideone = IdeOne()
-    print ideone.getLanguages()
-    print ideone.testFunction()
-    print ideone.createSubmission("print 'Hello World'\n", PYTHON, 'lala', False, True)
+    link = ideone.createSubmission("print 'Hello World'\n", PYTHON)
+    
+    while True:
+        print ideone.getSubmissionStatus(link)
