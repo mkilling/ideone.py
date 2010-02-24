@@ -68,9 +68,9 @@ class IdeOne:
 if __name__ == "__main__":
     PYTHON = 116
     ideone = IdeOne()
-    link = ideone.createSubmission("print 'Hello World'\n", PYTHON)
+    link = ideone.createSubmission("print('Hello World')\n", PYTHON)
     
-    while ideone.getSubmissionStatus(link)[0] != 0:
+    while ideone.getSubmissionStatus(link)[0] != Status.Done:
         pass
 
-    print ideone.getSubmissionDetails(link)
+    print ideone.getSubmissionDetails(link)['output']
