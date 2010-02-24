@@ -23,7 +23,7 @@ def createTuple(item):
 def createDict(items):
     dict = {}
     for item in items:
-        key = item['key'] 
+        key = item['key']
         value = item['value']
         dict[key] = value
     return dict
@@ -47,7 +47,7 @@ class IdeOne:
         languages = response['item'][1]['value']['item']
         return createDict(languages)
 
-    def createSubmission(self, code, language, input='', run=True, private=False):
+    def createSubmission(self, code, language, input='', run=True, private=True):
         response = self._wsdlObject.createSubmission(self._user, self._password, code, language, input, run, private)
         link = response['item'][1]['value']
         return link
@@ -59,11 +59,18 @@ class IdeOne:
         if status < 0: status = -1
         return (status, result)
 
+    def getSubmissionDetails(self, link, withSource=True, withInput=True, withOutput=True, withStderr=True, withCmpinfo=True):
+        response = self._wsdlObject.getSubmissionDetails(self._user, self._password, link, withSource, withInput, withOutput, withStderr, withCmpinfo)
+        details = response['item'][1:]
+        return createDict(details)
+
 
 if __name__ == "__main__":
     PYTHON = 116
     ideone = IdeOne()
     link = ideone.createSubmission("print 'Hello World'\n", PYTHON)
     
-    while True:
-        print ideone.getSubmissionStatus(link)
+    while ideone.getSubmissionStatus(link)[0] != 0:
+        pass
+
+    print ideone.getSubmissionDetails(link)
