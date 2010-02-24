@@ -27,7 +27,7 @@ class IdeOne:
         """returns a list of tuples with languages supported by ideone"""
         response = self._wsdlObject.getLanguages(self._user, self._password)
         languages = response['item'][1]['value']['item']
-        return map(createTuple, languages)
+        return createDict(languages)
 
     def createSubmission(self, code, language, input='', run=True, private=False):
         response = self._wsdlObject.createSubmission(self._user, self._password, code, language, input, run, private)
