@@ -71,7 +71,8 @@ if __name__ == "__main__":
     ideone = IdeOne()
 
     # run a python program
-    link = ideone.createSubmission("print('Hello World')\n", 116)
+    python = 116
+    link = ideone.createSubmission("print('Hello World')\n", python)
    
     # wait for it to finish 
     while ideone.getSubmissionStatus(link)[0] != Status.Done:
