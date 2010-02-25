@@ -40,7 +40,7 @@ class IdeOne:
         self._wsdlObject = WSDL.Proxy('http://ideone.com/api/1/service.wsdl')
 
     def testFunction(self):
-        response = self._wsdlObject.testFunction('test', 'test')
+        response = self._wsdlObject.testFunction(self._user, self._password)
         items = response['item']
         return createDict(items)
 
