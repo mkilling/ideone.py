@@ -43,8 +43,6 @@
 ident = '$Id: Server.py,v 1.20 2004/04/28 21:47:10 warnes Exp $'
 from version import __version__
 
-from __future__ import nested_scopes
-
 #import xml.sax
 import re
 import socket

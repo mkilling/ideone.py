@@ -36,8 +36,6 @@
 ident = '$Id: Types.py,v 1.17 2004/09/11 03:03:33 warnes Exp $'
 from version import __version__
 
-from __future__ import nested_scopes
-
 import UserList
 import base64
 import cgi

@@ -43,8 +43,6 @@
 ident = '$Id: Client.py,v 1.20 2004/04/10 04:22:52 irjudson Exp $'
 from version import __version__
 
-from __future__ import nested_scopes
-
 #import xml.sax
 import urllib
 from types import *
