@@ -1,8 +1,7 @@
 IDEONE.py
 =========
 
-A simple wrapper for the ideone.com SOAP API for Python.
-ideone.py requires [SOAPpy](http://sourceforge.net/projects/pywebsvcs/files/SOAP.py/)
+A simple wrapper for the ideone.com SOAP API for Python using SOAPpy
 
     ideone = IdeOne()
 
