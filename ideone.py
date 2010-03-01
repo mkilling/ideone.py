@@ -4,6 +4,8 @@
 
 from SOAPpy import WSDL
 
+RESPONSE_OK = "OK"
+
 class Status:
     Waiting = -1
     Done = 0
@@ -32,6 +34,9 @@ def createDict(items):
         dict[key] = value
     return dict
 
+def getError(response):
+    return response['item'][0]['value']
+
 
 class IdeOne:
     def __init__(self, user='test', password='test'):
@@ -41,21 +46,43 @@ class IdeOne:
 
     def testFunction(self):
         response = self._wsdlObject.testFunction(self._user, self._password)
+
+        error = getError(response)
+        if error != "OK": 
+            raise Exception(error)
+
         items = response['item']
-        return createDict(items)
+        dict = createDict(items)
+        return dict
 
     def getLanguages(self):
         response = self._wsdlObject.getLanguages(self._user, self._password)
+
+        error = getError(response)
+        if error != "OK": 
+            raise Exception(error)
+
         languages = response['item'][1]['value']['item']
-        return createDict(languages)
+        dict = createDict(languages)
+        return dict
 
     def createSubmission(self, code, language, input='', run=True, private=True):
         response = self._wsdlObject.createSubmission(self._user, self._password, code, language, input, run, private)
+
+        error = getError(response)
+        if error != "OK": 
+            raise Exception(error)
+
         link = response['item'][1]['value']
         return link
 
     def getSubmissionStatus(self, link):
         response = self._wsdlObject.getSubmissionStatus(self._user, self._password, link)
+
+        error = getError(response)
+        if error != "OK": 
+            raise Exception(error)
+
         status = response['item'][1]['value']
         result = response['item'][2]['value']
         if status < 0: status = -1
@@ -63,6 +90,11 @@ class IdeOne:
 
     def getSubmissionDetails(self, link, withSource=True, withInput=True, withOutput=True, withStderr=True, withCmpinfo=True):
         response = self._wsdlObject.getSubmissionDetails(self._user, self._password, link, withSource, withInput, withOutput, withStderr, withCmpinfo)
+
+        error = getError(response)
+        if error != "OK": 
+            raise Exception(error)
+
         details = response['item'][1:]
         return createDict(details)
 
