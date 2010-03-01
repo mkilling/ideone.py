@@ -35,7 +35,10 @@ def createDict(items):
     return dict
 
 def getError(response):
-    return response['item'][0]['value']
+    if response['item'][0] == 'error':
+        return response['item']['value']
+    else:
+        return response['item'][0]['value']
 
 
 class IdeOne:
